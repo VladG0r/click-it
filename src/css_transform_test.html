@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>CSS transition test</title>
+  <style>
+    html,body{
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    body{
+      background: #e0b3cf; /* няшный розовый */
+    }
+    .bubble{
+      position: absolute;
+      top: 41%;
+      left: 45%;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #5cabff, #04067a);
+      cursor: pointer;
+      transform: scale(1);
+    }
+    .bubble.shrink.animation{
+      transition-property: transform;
+      transition-duration: 3s; /* длительность анимации можно менять через JS */
+      transition-timing-function: linear;
+    }
+    .bubble.shrink{
+      transform: scale(0);
+    }
+    .text-center{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+    .result{
+      text-align: center;
+      color: white;
+      text-transform: uppercase;
+      font-size: 20px;
+    }
+    button{
+      position: absolute;
+      left: 50%;
+      bottom: 20%;
+      width: 200px;
+      height: 40px;
+      color: white;
+      background: #04067a;
+      transform: translateX(-50%);
+    }
+  </style>
+</head>
+<body>
+  <h3 class="result">Clicks: <span class=counter>0</span></h5>
+  <div class="bubble animation text-center">
+    <p>Нажми меня!</p>
+    </div>
+  <button>Заново</button>
+  <script>
+    window.onload = () => {
+      const button = document.querySelector("button");
+      const bubble = document.querySelector(".bubble");
+      const counterHolder = document.querySelector(".counter");
+      let counter = 0;
+
+      bubble.classList.add("shrink");
+
+      handlerButtonClick = () =>{
+        counter = 0;
+        counterHolder.innerText = counter;
+        bubble.classList.remove("shrink");
+        setTimeout(()=>{
+          bubble.classList.add("shrink");
+        }, 1);
+      }
+
+      handlerBubbleClick = () =>{
+        counter++;
+        counterHolder.innerText = counter;
+      }
+
+      button.addEventListener( "click", handlerButtonClick );
+      bubble.addEventListener( "click", handlerBubbleClick );
+    };
+  </script>
+</body>
+</html>
